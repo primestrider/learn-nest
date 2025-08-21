@@ -1,4 +1,4 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Param, Post, Query } from '@nestjs/common';
 
 @Controller('api/users')
 export class UserController {
@@ -10,5 +10,18 @@ export class UserController {
   @Get('/sample')
   get(): string {
     return 'get user 222';
+  }
+
+  @Get('/sample/:id')
+  getDynamic(@Param('id') id: string): string {
+    return `GET SAMPLE ${id}`;
+  }
+
+  @Get('/hello')
+  sayHello(
+    @Query('first_name') firstName: string,
+    @Query('last_name') lastName: string,
+  ): string {
+    return `Hello ${firstName} ${lastName}`;
   }
 }

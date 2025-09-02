@@ -7,9 +7,16 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
+import { UserService } from './user.service';
 
 @Controller('api/users')
 export class UserController {
+  constructor(private readonly service: UserService) {}
+
+  // or
+  // @Inject()
+  // private readonly userService: UserService;
+
   @Post()
   post(): string {
     return 'post users';
@@ -17,7 +24,7 @@ export class UserController {
 
   @Get('/sample')
   get(): string {
-    return 'get user 222';
+    return this.service.sayHello('sample');
   }
 
   @Get('/sample/:id')

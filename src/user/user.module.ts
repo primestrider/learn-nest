@@ -25,7 +25,7 @@ import { ConfigService } from "@nestjs/config";
     },
     {
       provide: MailService,
-      useValue: { mailService }
+      useValue: mailService
     },
     {
       provide: UserRepository,

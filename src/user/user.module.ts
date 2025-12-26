@@ -3,14 +3,16 @@ import { UserController } from "./user.controller";
 import { UserService } from "./user.service";
 import {
   Connection,
-  MongoDbConnection,
-  MySqlConnection
+  createConnection
+  // MongoDbConnection,
+  // MySqlConnection
 } from "./connection/connection";
 import { mailService, MailService } from "./mail/mail.service";
 import {
   createUserRepository,
   UserRepository
 } from "./user-repository/user-repository";
+import { ConfigService } from "@nestjs/config";
 
 @Module({
   controllers: [UserController],
@@ -18,8 +20,8 @@ import {
     UserService,
     {
       provide: Connection,
-      useClass:
-        process.env.DATABASE == "mysql" ? MySqlConnection : MongoDbConnection
+      useFactory: createConnection,
+      inject: [ConfigService]
     },
     {
       provide: MailService,
